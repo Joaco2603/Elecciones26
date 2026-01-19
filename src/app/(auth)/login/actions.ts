@@ -16,7 +16,7 @@ export async function signIn(formData: FormData) {
     });
 
     if (error) {
-        return redirect("/login?error=Invalid credentials");
+        return { error: error.message };
     }
 
     revalidatePath("/", "layout");

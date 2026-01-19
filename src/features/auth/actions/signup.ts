@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
-import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { redirect } from 'next/navigation'
 
 const signupSchema = z.object({
@@ -24,7 +24,7 @@ export async function signupAction(formData: FormData) {
 
     const { email, password } = validatedFields.data
 
-    const supabase = await createClient()
+    const supabase = createAdminClient()
 
     // Check if user exists
     const { data: existingUser } = await supabase

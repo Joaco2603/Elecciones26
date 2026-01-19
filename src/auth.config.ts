@@ -2,15 +2,15 @@ import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
     pages: {
-        signIn: '/admin/login',
+        signIn: '/login',
     },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
 
-            // Allow access to login page
-            if (nextUrl.pathname.startsWith('/admin/login')) {
+            // Allow access to login and signup pages
+            if (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/signup')) {
                 if (isLoggedIn) {
                     return Response.redirect(new URL('/admin/dashboard', nextUrl));
                 }
