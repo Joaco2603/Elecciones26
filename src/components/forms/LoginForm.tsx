@@ -7,7 +7,7 @@ import { Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormInput } from "./FormInput";
-import { signIn } from "@/app/(auth)/login/actions";
+import { loginAction } from "@/features/auth/actions/auth";
 
 const loginSchema = z.object({
     email: z.string().email("Correo electrónico inválido"),
@@ -36,7 +36,7 @@ export function LoginForm() {
         formData.append("password", data.password);
 
         try {
-            const result = await signIn(formData);
+            const result = await loginAction(formData);
             if (result?.error) {
                 setServerError(result.error);
             }
